@@ -9,7 +9,7 @@ export const makeSlackPayload = (events : GoogleAppsScript.Calendar.CalendarEven
             short : false
         }
         let timeStr : string
-        if(event.isAllDayEvent){
+        if(event.isAllDayEvent()){
             timeStr = "All day"
         }else{
             const startTime : GoogleAppsScript.Base.Date = event.getStartTime()
