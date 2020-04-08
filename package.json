@@ -7,6 +7,7 @@
     "@types/google-apps-script": "^1.0.11"
   },
   "devDependencies": {
+    "@google/clasp": "^2.3.0",
     "gas-webpack-plugin": "^1.0.2",
     "ts-loader": "^6.2.2",
     "typescript": "^3.8.3",
@@ -14,7 +15,9 @@
     "webpack-cli": "^3.3.11"
   },
   "scripts": {
-    "build": "webpack",
+    "build-dev": "webpack && cp ./resource/develop.js ./dist/config.js",
+    "build-prod": "webpack && cp ./resource/product.js ./dist/config.js",
+    "clasp-push" :  "./node_modules/.bin/clasp push"
   },
   "author": "gihachi",
   "license": "MIT"
