@@ -1,9 +1,19 @@
+import {getTomorrowEvents} from './modules/google/CalendarReader'
+import {StartupReminder} from './modules/slack/StartupReminder'
+
 declare namespace global {
-    var main: any
+    let main: any
+}
+
+declare namespace config {
+    let startupPostUrl : string
+    let seminarPostUrl : string
+    let calendarId : string
 }
   
 
 global.main = () => {
-    let aaa : string = "aaa"
-    console.log(aaa)
+    const events : GoogleAppsScript.Calendar.CalendarEvent[] = getTomorrowEvents(config.calendarId)
+    const startupReminder : StartupReminder = new StartupReminder(config.startupPostUrl)
+    startupReminder.sendMessageToSlack(events)
 }
