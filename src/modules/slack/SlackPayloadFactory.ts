@@ -1,6 +1,11 @@
 import {SlackPayload,Field} from './SlackPayload'
 
-export const makeSlackPayload = (events : GoogleAppsScript.Calendar.CalendarEvent[]) : SlackPayload => {
+/**
+ * slackのincoming webhookにpostするpayloadを作成
+ * @param events regExpにマッチするdescriptionを持つeventの配列
+ * @param regExp 通知が必要なパターン.　通知を送る内容を取得するために'()'を一つ含んでいる必要がある
+ */
+export const makeSlackPayload = (events : GoogleAppsScript.Calendar.CalendarEvent[], regExp : RegExp) : SlackPayload => {
     const fields : Field[] = []
     for(let event of events){
         const eventField : Field = {
@@ -21,9 +26,12 @@ export const makeSlackPayload = (events : GoogleAppsScript.Calendar.CalendarEven
             value : timeStr,
             short : true
         }
+
+        const matches : string[] = regExp.exec(event.getDescription())
+
         const detailField = {
             title : "Detail",
-            value : event.getDescription(),
+            value : matches[1],
             short : false
         }
 
