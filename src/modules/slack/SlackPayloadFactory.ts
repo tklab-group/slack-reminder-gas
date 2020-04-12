@@ -44,7 +44,7 @@ export const makeSlackPayload = (events : GoogleAppsScript.Calendar.CalendarEven
         attachments : [
             {
                 fallback : '明日の予定だよ〜〜〜',
-                pretext : '明日の予定だよ〜〜〜',
+                pretext : '<!channel> 明日の予定だよ〜〜〜',
                 color : '#D00000',
                 fields : fields
             }
