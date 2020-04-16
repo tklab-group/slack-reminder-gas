@@ -4,7 +4,7 @@ import {SeminarReminder} from './modules/slack/SeminarReminder'
 
 declare namespace global {
     let dayBeforeRemind : any
-    let beforeMeetingRemind : any
+    let beforeEventRemind : any
 }
 
 declare namespace config {
@@ -28,6 +28,6 @@ global.dayBeforeRemind = () => {
     seminarReminder.sendTomorrowRemind(events)
 }
 
-global.beforeMeetingRemind = () => {
+global.beforeEventRemind = () => {
 
 }
