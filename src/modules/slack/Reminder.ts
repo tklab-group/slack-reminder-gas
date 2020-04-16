@@ -5,7 +5,7 @@ export interface Reminder{
     slackUrl : string
 
     /**
-     * slackにリマインドを送る
+     * slackに明日の予定のリマインドを送る
      */
-    sendMessageToSlack(events : GoogleAppsScript.Calendar.CalendarEvent[]) : void
+    sendTomorrowRemind(events : GoogleAppsScript.Calendar.CalendarEvent[]) : void
 }

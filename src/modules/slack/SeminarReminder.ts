@@ -22,7 +22,7 @@ export class SeminarReminder implements Reminder{
         this.speakerIndexInSpreadsheet = speakerIndexInSpreadsheet
     }
 
-    sendMessageToSlack(events : GoogleAppsScript.Calendar.CalendarEvent[]) : void {
+    sendTomorrowRemind(events : GoogleAppsScript.Calendar.CalendarEvent[]) : void {
         const reminderRegex : RegExp = new RegExp(SeminarReminder.REMIND_REGEX, 's')
         const spreadsheetRegex : RegExp = new RegExp(SeminarReminder.SPREADSHEET_REGEX)
 

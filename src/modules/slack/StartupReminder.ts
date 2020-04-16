@@ -12,7 +12,7 @@ export class StartupReminder implements Reminder {
         this.slackUrl = slackUrl
     }
     
-    sendMessageToSlack(events : GoogleAppsScript.Calendar.CalendarEvent[]) : void {
+    sendTomorrowRemind(events : GoogleAppsScript.Calendar.CalendarEvent[]) : void {
         const remindRegex : RegExp = new RegExp(StartupReminder.REMIND_REGEX, 's')
         const remindEventList : GoogleAppsScript.Calendar.CalendarEvent[] = []
         for(let event of events){
