@@ -8,27 +8,10 @@ import {SlackPayload,Field} from './SlackPayload'
 export const makeSlackPayload = (events : GoogleAppsScript.Calendar.CalendarEvent[], regExp : RegExp) : SlackPayload => {
     const fields : Field[] = []
     for(let event of events){
-        const eventField : Field = {
-            title : "Event",
-            value : event.getTitle(),
-            short : false
-        }
-        let timeStr : string
-        if(event.isAllDayEvent()){
-            timeStr = "All day"
-        }else{
-            const startTime : GoogleAppsScript.Base.Date = event.getStartTime()
-            const endTime : GoogleAppsScript.Base.Date = event.getEndTime()
-            timeStr = startTime.getHours()+':'+startTime.getMinutes()+'-'+endTime.getHours()+':'+endTime.getMinutes()
-        }
-        const timeFiled : Field = {
-            title : "Time",
-            value : timeStr,
-            short : true
-        }
+        const eventField : Field = makeEventTitleField(event)
+        const timeFiled : Field = makeTimeField(event)
 
         const matches : string[] = regExp.exec(event.getDescription())
-
         const detailField = {
             title : "Detail",
             value : matches[1],
@@ -50,4 +33,30 @@ export const makeSlackPayload = (events : GoogleAppsScript.Calendar.CalendarEven
             }
         ]
     }
+}
+
+export const makeEventTitleField = (event : GoogleAppsScript.Calendar.CalendarEvent) : Field => {
+    const eventField : Field = {
+        title : "Event",
+        value : event.getTitle(),
+        short : false
+    }
+    return eventField
+}
+
+export const makeTimeField = (event : GoogleAppsScript.Calendar.CalendarEvent) : Field => {
+    let timeStr : string
+    if(event.isAllDayEvent()){
+        timeStr = "All day"
+    }else{
+        const startTime : GoogleAppsScript.Base.Date = event.getStartTime()
+        const endTime : GoogleAppsScript.Base.Date = event.getEndTime()
+        timeStr = startTime.getHours()+':'+startTime.getMinutes()+'-'+endTime.getHours()+':'+endTime.getMinutes()
+    }
+    const timeFiled : Field = {
+        title : "Time",
+        value : timeStr,
+        short : true
+    }
+    return timeFiled
 }

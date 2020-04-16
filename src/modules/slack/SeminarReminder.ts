@@ -1,6 +1,6 @@
 import { Reminder } from "./Reminder"
 import { SlackPayload, Field } from "./SlackPayload"
-import { makeSlackPayload } from "./SlackPayloadFactory"
+import { makeSlackPayload, makeEventTitleField, makeTimeField } from "./SlackPayloadFactory"
 import { readSpeaker } from "../google/SpreadsheetReader"
 
 export class SeminarReminder implements Reminder{
@@ -65,24 +65,8 @@ export class SeminarReminder implements Reminder{
         const fields : Field[] = []
         
         for(let event of events){
-            const eventField : Field = {
-                title : "Event",
-                value : event.getTitle(),
-                short : false
-            }
-            let timeStr : string
-            if(event.isAllDayEvent()){
-                timeStr = "All day"
-            }else{
-                const startTime : GoogleAppsScript.Base.Date = event.getStartTime()
-                const endTime : GoogleAppsScript.Base.Date = event.getEndTime()
-                timeStr = startTime.getHours()+':'+startTime.getMinutes()+'-'+endTime.getHours()+':'+endTime.getMinutes()
-            }
-            const timeFiled : Field = {
-                title : "Time",
-                value : timeStr,
-                short : true
-            }
+            const eventField : Field = makeEventTitleField(event)
+            const timeFiled : Field = makeTimeField(event)
     
             const tomorrow = new Date()
             tomorrow.setDate(tomorrow.getDate()+1)
