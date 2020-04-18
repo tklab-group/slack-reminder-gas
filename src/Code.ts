@@ -19,7 +19,6 @@ declare namespace config {
   
 
 global.dayBeforeRemind = () => {
-    console.log("aaaaaa")
     const events : GoogleAppsScript.Calendar.CalendarEvent[] = getTomorrowEvents(config.calendarId)
     const startupReminder : StartupReminder = new StartupReminder(config.startupPostUrl)
     startupReminder.sendTomorrowRemind(events)
