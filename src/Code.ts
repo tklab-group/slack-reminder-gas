@@ -36,8 +36,8 @@ global.beforeEventRemind = () => {
         return
     }
     const startupReminder : StartupReminder = new StartupReminder(config.startupPostUrl)
-    startupReminder.sendTomorrowRemind(events)
+    startupReminder.sendBeforeEventRemind(events)
 
     const seminarReminder : SeminarReminder = new SeminarReminder(config.seminarPostUrl, config.spreadsheetId, config.a1Notion, config.dateIndex, config.speakerIndex)
-    seminarReminder.sendTomorrowRemind(events)
+    seminarReminder.sendBeforeEventRemind(events)
 }
