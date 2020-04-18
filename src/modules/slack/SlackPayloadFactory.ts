@@ -1,11 +1,11 @@
 import {SlackPayload,Field} from './SlackPayload'
 
 /**
- * slackのincoming webhookにpostするpayloadを作成
+ * slackのincoming webhookにpostするpayloadを作成(次の日の通知用)
  * @param events regExpにマッチするdescriptionを持つeventの配列
  * @param regExp 通知が必要なパターン.　通知を送る内容を取得するために'()'を一つ含んでいる必要がある
  */
-export const makeSlackPayload = (events : GoogleAppsScript.Calendar.CalendarEvent[], regExp : RegExp) : SlackPayload => {
+export const makeTomorrowRemindPayload = (events : GoogleAppsScript.Calendar.CalendarEvent[], regExp : RegExp) : SlackPayload => {
     const fields : Field[] = []
     for(let event of events){
         const eventField : Field = makeEventTitleField(event)
@@ -28,6 +28,27 @@ export const makeSlackPayload = (events : GoogleAppsScript.Calendar.CalendarEven
             {
                 fallback : '明日の予定だよ〜〜〜',
                 pretext : '<!channel> 明日の予定だよ〜〜〜',
+                color : '#D00000',
+                fields : fields
+            }
+        ]
+    }
+}
+
+export const makeBeforeEventRemindPayload = (events : GoogleAppsScript.Calendar.CalendarEvent[]) : SlackPayload => {
+    const fields : Field[] = []
+    for(let event of events){
+        const eventField : Field = makeEventTitleField(event)
+        const timeFiled : Field = makeTimeField(event)
+
+        fields.push(eventField)
+        fields.push(timeFiled)
+    }
+    return {
+        attachments : [
+            {
+                fallback : 'もうすぐゼミが始まるよ〜〜〜',
+                pretext : '<!channel> もうすぐゼミが始まるよ〜〜〜',
                 color : '#D00000',
                 fields : fields
             }

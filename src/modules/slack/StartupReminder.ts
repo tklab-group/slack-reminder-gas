@@ -1,10 +1,11 @@
 import {Reminder} from './Reminder'
 import {SlackPayload} from './SlackPayload'
-import {makeSlackPayload} from './SlackPayloadFactory'
+import {makeTomorrowRemindPayload, makeBeforeEventRemindPayload} from './SlackPayloadFactory'
 
 export class StartupReminder implements Reminder {
     
     static REMIND_REGEX : string = "STARTUP{(.*?)}"
+    static BEFORE_EVENT_REGEX : string = "BEFORE_REMIND"
 
     slackUrl : string
 
@@ -28,7 +29,33 @@ export class StartupReminder implements Reminder {
             return
         }
 
-        const slackPayload : SlackPayload = makeSlackPayload(remindEventList, remindRegex)
+        const slackPayload : SlackPayload = makeTomorrowRemindPayload(remindEventList, remindRegex)
+        UrlFetchApp.fetch(this.slackUrl, {
+            'method' : 'post',
+            'payload' : JSON.stringify(slackPayload)
+        })
+    }
+
+    sendBeforeEventRemind(events : GoogleAppsScript.Calendar.CalendarEvent[]) : void {
+        const reminderRegex : RegExp = new RegExp(StartupReminder.REMIND_REGEX, 's')
+        const beforeEventRegex : RegExp = new RegExp(StartupReminder.BEFORE_EVENT_REGEX)
+
+        const remindEventArr : GoogleAppsScript.Calendar.CalendarEvent[] = []
+        for(let event of events){
+            const eventDetail : string = event.getDescription()
+            const remindMatch = reminderRegex.exec(eventDetail)
+            const beforeEventMatch = beforeEventRegex.exec(eventDetail)
+
+            if(remindMatch && beforeEventMatch){
+                remindEventArr.push(event)
+            }
+        }
+
+        if(remindEventArr.length == 0){
+            return
+        }
+
+        const slackPayload : SlackPayload = makeBeforeEventRemindPayload(remindEventArr)
         UrlFetchApp.fetch(this.slackUrl, {
             'method' : 'post',
             'payload' : JSON.stringify(slackPayload)
