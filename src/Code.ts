@@ -1,4 +1,4 @@
-import {getTomorrowEvents, getEventsWithin30Minutes} from './modules/google/CalendarReader'
+import {getTomorrowEvents, getEventsWithin10Minutes} from './modules/google/CalendarReader'
 import {StartupReminder} from './modules/slack/StartupReminder'
 import {SeminarReminder} from './modules/slack/SeminarReminder'
 
@@ -31,7 +31,7 @@ global.dayBeforeRemind = () => {
 }
 
 global.beforeEventRemind = () => {
-    const events : GoogleAppsScript.Calendar.CalendarEvent[] = getEventsWithin30Minutes(config.calendarId)
+    const events : GoogleAppsScript.Calendar.CalendarEvent[] = getEventsWithin10Minutes(config.calendarId)
     if(events.length == 0){
         return
     }
