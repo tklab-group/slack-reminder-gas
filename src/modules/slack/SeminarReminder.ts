@@ -2,12 +2,12 @@ import { Reminder } from "./Reminder"
 import { SlackPayload, Field } from "./SlackPayload"
 import { makeTomorrowRemindPayload, makeBeforeEventRemindPayload,makeEventTitleField, makeTimeField } from "./SlackPayloadFactory"
 import { readSpeaker } from "../google/SpreadsheetReader"
+import { BEFORE_EVENT_REGEX } from "../google/TriggerManager"
 
 export class SeminarReminder implements Reminder{
     
     static REMIND_REGEX : string = "REMINDER{(.*?)}"
     static SPREADSHEET_REGEX : string = "SPREADSHEET"
-    static BEFORE_EVENT_REGEX : string = "BEFORE_REMIND"
     
     slackUrl : string
     spreadsheetId : string
@@ -58,7 +58,7 @@ export class SeminarReminder implements Reminder{
 
     sendBeforeEventRemind(events : GoogleAppsScript.Calendar.CalendarEvent[]) : void{
         const reminderRegex : RegExp = new RegExp(SeminarReminder.REMIND_REGEX, 's')
-        const beforeEventRegex : RegExp = new RegExp(SeminarReminder.BEFORE_EVENT_REGEX)
+        const beforeEventRegex : RegExp = new RegExp(BEFORE_EVENT_REGEX)
 
         const remindEventArr : GoogleAppsScript.Calendar.CalendarEvent[] = []
         for(let event of events){

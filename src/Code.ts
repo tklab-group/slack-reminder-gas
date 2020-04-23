@@ -1,4 +1,5 @@
 import {getTomorrowEvents, getEventsWithin10Minutes} from './modules/google/CalendarReader'
+import {setBeforeEventTrigger} from './modules/google/TriggerManager'
 import {StartupReminder} from './modules/slack/StartupReminder'
 import {SeminarReminder} from './modules/slack/SeminarReminder'
 
@@ -23,6 +24,9 @@ global.dayBeforeRemind = () => {
     if(events.length == 0){
         return
     }
+
+    setBeforeEventTrigger(events)
+
     const startupReminder : StartupReminder = new StartupReminder(config.startupPostUrl)
     startupReminder.sendTomorrowRemind(events)
 

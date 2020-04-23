@@ -1,11 +1,11 @@
 import {Reminder} from './Reminder'
 import {SlackPayload} from './SlackPayload'
 import {makeTomorrowRemindPayload, makeBeforeEventRemindPayload} from './SlackPayloadFactory'
+import {BEFORE_EVENT_REGEX} from '../google/TriggerManager'
 
 export class StartupReminder implements Reminder {
     
     static REMIND_REGEX : string = "STARTUP{(.*?)}"
-    static BEFORE_EVENT_REGEX : string = "BEFORE_REMIND"
 
     slackUrl : string
 
@@ -38,7 +38,7 @@ export class StartupReminder implements Reminder {
 
     sendBeforeEventRemind(events : GoogleAppsScript.Calendar.CalendarEvent[]) : void {
         const reminderRegex : RegExp = new RegExp(StartupReminder.REMIND_REGEX, 's')
-        const beforeEventRegex : RegExp = new RegExp(StartupReminder.BEFORE_EVENT_REGEX)
+        const beforeEventRegex : RegExp = new RegExp(BEFORE_EVENT_REGEX)
 
         const remindEventArr : GoogleAppsScript.Calendar.CalendarEvent[] = []
         for(let event of events){
