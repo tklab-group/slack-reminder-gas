@@ -72,7 +72,7 @@ export const makeTimeField = (event : GoogleAppsScript.Calendar.CalendarEvent) :
     }else{
         const startTime : GoogleAppsScript.Base.Date = event.getStartTime()
         const endTime : GoogleAppsScript.Base.Date = event.getEndTime()
-        timeStr = startTime.getHours()+':'+startTime.getMinutes()+'-'+endTime.getHours()+':'+endTime.getMinutes()
+        timeStr = getTimeStr(startTime) + '-' + getTimeStr(endTime)
     }
     const timeFiled : Field = {
         title : "Time",
@@ -80,4 +80,8 @@ export const makeTimeField = (event : GoogleAppsScript.Calendar.CalendarEvent) :
         short : true
     }
     return timeFiled
+}
+
+const getTimeStr = (time : GoogleAppsScript.Base.Date) : string => {
+    return ('0'+time.getHours()).slice(-2) + ':' + ('0'+time.getMinutes()).slice(-2)
 }
