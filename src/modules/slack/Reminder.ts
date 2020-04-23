@@ -12,7 +12,7 @@ export interface Reminder{
 
     /**
      * event直前にリマインドを送る
-     * @param events 10分いないのeventの配列
+     * @param events 10分以内のeventの配列
      */
     sendBeforeEventRemind(events : GoogleAppsScript.Calendar.CalendarEvent[]) : void
 }
