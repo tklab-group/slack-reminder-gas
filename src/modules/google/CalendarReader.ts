@@ -14,7 +14,7 @@ export const getEventsWithin10Minutes = (calendarId : string) : GoogleAppsScript
     const returnEventArr : GoogleAppsScript.Calendar.CalendarEvent[] = []
 
     for(let event of eventArr){
-        if(now < event.getStartTime() && event.getStartTime() < tenMinutesAfter){
+        if(now < event.getStartTime() && event.getStartTime() <= tenMinutesAfter){
             returnEventArr.push(event)
         }
     }
