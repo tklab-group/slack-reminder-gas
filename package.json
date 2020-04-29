@@ -17,7 +17,9 @@
   "scripts": {
     "build-dev": "webpack && cp ./resource/develop.js ./dist/config.js",
     "build-prod": "webpack && cp ./resource/product.js ./dist/config.js",
-    "clasp-push" :  "./node_modules/.bin/clasp push"
+    "clasp-push" :  "./node_modules/.bin/clasp push",
+    "clasp-login" : "./node_modules/.bin/clasp login",
+    "clasp-create" : "./node_modules/.bin/clasp login"
   },
   "author": "gihachi",
   "license": "MIT"
