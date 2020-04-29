@@ -6,6 +6,7 @@ import {SeminarReminder} from './modules/slack/SeminarReminder'
 declare namespace global {
     let dayBeforeRemind : any
     let beforeEventRemind : any
+    let setBeforeRemind: any
 }
 
 declare namespace config {
@@ -23,9 +24,7 @@ global.dayBeforeRemind = () => {
     const events : GoogleAppsScript.Calendar.CalendarEvent[] = getTomorrowEvents(config.calendarId)
     if(events.length == 0){
         return
-    }
-
-    setBeforeEventTrigger(events)
+    }    
 
     const startupReminder : StartupReminder = new StartupReminder(config.startupPostUrl)
     startupReminder.sendTomorrowRemind(events)
@@ -44,4 +43,12 @@ global.beforeEventRemind = () => {
 
     const seminarReminder : SeminarReminder = new SeminarReminder(config.seminarPostUrl, config.spreadsheetId, config.a1Notion, config.dateIndex, config.speakerIndex)
     seminarReminder.sendBeforeEventRemind(events)
+}
+
+global.setBeforeRemind = () => {
+    const events : GoogleAppsScript.Calendar.CalendarEvent[] = getTomorrowEvents(config.calendarId)
+    if(events.length == 0){
+        return
+    }
+    setBeforeEventTrigger(events)
 }
