@@ -8,7 +8,7 @@ export const getTomorrowEvents = (calendarId : string) : GoogleAppsScript.Calend
 export const getEventsWithin10Minutes = (calendarId : string) : GoogleAppsScript.Calendar.CalendarEvent[] => {
     const calendar : GoogleAppsScript.Calendar.Calendar = CalendarApp.getCalendarById(calendarId)
     const now : Date = new Date()
-    const tenMinutesAfter : Date = new Date(now.getTime() + (30 * 60 * 1000))
+    const tenMinutesAfter : Date = new Date(now.getTime() + (10 * 60 * 1000))
     const eventArr : GoogleAppsScript.Calendar.CalendarEvent[] =  calendar.getEvents(now, tenMinutesAfter)
 
     const returnEventArr : GoogleAppsScript.Calendar.CalendarEvent[] = []
