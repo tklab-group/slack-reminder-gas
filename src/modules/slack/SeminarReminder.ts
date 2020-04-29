@@ -98,7 +98,7 @@ export class SeminarReminder implements Reminder{
             tomorrow.setDate(tomorrow.getDate()+1)
             const speakerArr : string[] = readSpeaker(this.spreadsheetId, tomorrow, this.a1Notion, this.dateIndexInSpreadsheet, this.speakerIndexInSpreadsheet)
             for(let index in speakerArr){
-                speakerArr[index] = '<@'+speakerArr[index]+'>'
+                speakerArr[index] = '@'+speakerArr[index]
             }
 
             const matches : string[] = reminderRegex.exec(event.getDescription())
