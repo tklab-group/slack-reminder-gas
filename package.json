@@ -19,7 +19,7 @@
     "build-prod": "webpack && cp ./resource/product.js ./dist/config.js",
     "clasp-push" :  "./node_modules/.bin/clasp push",
     "clasp-login" : "./node_modules/.bin/clasp login",
-    "clasp-create" : "./node_modules/.bin/clasp login"
+    "clasp-create" : "./node_modules/.bin/clasp create"
   },
   "author": "gihachi",
   "license": "MIT"
