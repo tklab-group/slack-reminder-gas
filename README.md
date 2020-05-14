@@ -24,7 +24,7 @@ slackのincoming webhookのurl等を記述する.
 
 develop用にdevelop.jsも作って良い
 
-product.jsかつdevelop.jsには以下を記述
+product.js(develop.js)には以下を記述
 
 ```
 var config = {
@@ -42,7 +42,7 @@ var config = {
 
 ```
 $ npm run build-prod
-$ # build.jsの内容を使いたい時は npm run build-prod
+$ # develop.jsの内容を使いたい時は npm run build-dev
 $ npm run clasp-push
 ```
 
@@ -53,9 +53,9 @@ $ npm run clasp-push
 3つの関数が用意されている. それぞれの関数の内容は以下の通り.
 
 - dayBeforeRemind()
-  - イベントの前日にリマインドを送る
+  - 次の日のイベントのリマインドを送る
 - beforeEventRemind()
-  - イベントの直前にリマインドを送る. 関数起動の10分後以内にリマインドするイベントがあればリマインダを送る
+  - イベントの直前にリマインドを送る. 関数起動の10分後以内にリマインドするイベントがあればリマインドを送る
 - setBeforeRemind()
   - Google Calendarの次の日の予定を確認して直前にリマインドが必要なイベントがあれば, イベントの開始10分前にbeforeEventRemind()が起動するようにトリガーを設定する
   - 同時にすでに登録されていたbeforeEventRemind()を全て削除する
@@ -68,10 +68,10 @@ $ npm run clasp-push
 
 トリガーを設定して関数を定期的に実行することができる
 
-1. script.google.comにアクセスして2で作成したプロジェクトからトリガーのページに移動
+1. script.google.comにアクセスして作成したプロジェクトからトリガーのページに移動
 2. dayBeforeRemind()を1日1回発動するように設定
 3. setBeforeRemind()を1日1回発動するように設定
-   -  この関数が起動するとbeforeEventRemind()のトリガーを全て消してしまう, すなわちその日に通知すべきリマインドのトリガーを消してしまう可能性があるため, 23-24時の間に設定すると良い
+   -  この関数が起動するとbeforeEventRemind()のトリガーを全て消してしまう, すなわち, その日に通知すべきリマインドのトリガーを消してしまう可能性があるため, 23-24時の間に設定すると良い
 
 ### beforeEventRemind()がうまく動かない場合
 
@@ -87,17 +87,17 @@ Googleカレンダー内のイベントに以下の内容を書くと```seminarP
 REMINDER{(リマインドする内容)}
 ```
 
-また, 以下の文字列を書くとイベントの直前にリマインドを送る
+また, 以下の文字列を書くとイベントの直前にリマインドを送る.
 
 ```
 BEFIRE_REMIND
 ```
 
-さらに, 以下の文字列がある場合はGoogle spreadsheetから発表者の名前を検索してリマインド内容に含める
+さらに, 以下の文字列がある場合はGoogle spreadsheetから発表者の名前を検索してリマインド内容に含める.
 
 ```
 SPREADSHEET
 ```
 
-また, ```REMINDER```を```STARTUP```に変えると```startupPostUrl```に設定したURLにリマインドをpostする
+また, ```REMINDER```を```STARTUP```に変えると```startupPostUrl```に設定したURLにリマインドをpostする. (今は使ってない)
 
