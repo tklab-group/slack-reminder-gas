@@ -18,6 +18,8 @@ $ npm run clasp-login
 $ npm run clasp-create -- <project name>
 ```
 
+このとき、`standalone` を選択
+
 3. ./resourceにproduct.jsを配置
 
 slackのincoming webhookのurl等を記述する.
