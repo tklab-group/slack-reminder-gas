@@ -24,6 +24,13 @@ export class SeminarReminder implements Reminder{
         this.speakerIndexInSpreadsheet = speakerIndexInSpreadsheet
     }
 
+    static matchReminderRegex(text:string) : boolean {
+        const reminderRegex : RegExp = new RegExp(SeminarReminder.REMIND_REGEX, 's')
+        const remindMatch = reminderRegex.exec(text)
+
+        return remindMatch.length !== 0
+    }
+
     sendTomorrowRemind(events : GoogleAppsScript.Calendar.CalendarEvent[]) : void {
         const reminderRegex : RegExp = new RegExp(SeminarReminder.REMIND_REGEX, 's')
         const spreadsheetRegex : RegExp = new RegExp(SeminarReminder.SPREADSHEET_REGEX)

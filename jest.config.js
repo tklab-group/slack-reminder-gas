@@ -1,9 +1,14 @@
 module.exports = {
+    preset: 'ts-jest',
+    testEnvironment: 'node',
+    verbose: true,
     "roots": [
+      "<rootDir>/tests",
       "<rootDir>/src"
     ],
-    "testMatch": [
-      "**/__tests__/**/*.+(ts|js)",
-      "**/?(*.)+(spec|test).+(ts|js)"
-    ],
+    // "testMatch": [
+    //   "modules/**/*.sepc.ts",
+    //   "modules/**/?(*.)+(spec|test).ts",
+    //   "modules/slack/SeminarReminder.sepc.ts"
+    // ],
   }
