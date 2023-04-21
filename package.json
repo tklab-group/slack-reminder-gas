@@ -8,7 +8,10 @@
   },
   "devDependencies": {
     "@google/clasp": "^2.4.2",
+    "@types/jest": "^29.5.1",
     "gas-webpack-plugin": "^2.3.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
     "ts-loader": "^9.4.2",
     "typescript": "^5.0.3",
     "webpack": "^5.78.0",
@@ -17,9 +20,10 @@
   "scripts": {
     "build-dev": "webpack && cp ./resource/develop.js ./dist/config.js",
     "build-prod": "webpack && cp ./resource/product.js ./dist/config.js",
-    "clasp-push" :  "./node_modules/.bin/clasp push",
-    "clasp-login" : "./node_modules/.bin/clasp login",
-    "clasp-create" : "./node_modules/.bin/clasp create"
+    "clasp-push": "./node_modules/.bin/clasp push",
+    "clasp-login": "./node_modules/.bin/clasp login",
+    "clasp-create": "./node_modules/.bin/clasp create",
+    "test": "jest"
   },
   "author": "gihachi",
   "license": "MIT"
