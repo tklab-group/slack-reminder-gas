@@ -22,6 +22,7 @@ declare namespace config {
 
 global.dayBeforeRemind = () => {
     const events : GoogleAppsScript.Calendar.CalendarEvent[] = getTomorrowEvents(config.calendarId)
+    console.log('Got event counts: %d', events.length)
     if(events.length == 0){
         return
     }    
@@ -35,6 +36,7 @@ global.dayBeforeRemind = () => {
 
 global.beforeEventRemind = () => {
     const events : GoogleAppsScript.Calendar.CalendarEvent[] = getEventsWithin10Minutes(config.calendarId)
+    console.log('Got event counts: %d', events.length)
     if(events.length == 0){
         return
     }
@@ -47,6 +49,7 @@ global.beforeEventRemind = () => {
 
 global.setBeforeRemind = () => {
     const events : GoogleAppsScript.Calendar.CalendarEvent[] = getTomorrowEvents(config.calendarId)
+    console.log('Got event counts: %d', events.length)
     if(events.length == 0){
         return
     }

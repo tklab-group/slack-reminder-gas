@@ -4,6 +4,7 @@ import { makeTomorrowRemindPayload, makeBeforeEventRemindPayload,makeEventTitleF
 import { readSpeaker } from "../google/SpreadsheetReader"
 import { BEFORE_EVENT_REGEX } from "../google/TriggerManager"
 
+//  seminarとしてのリマインドを管理する
 export class SeminarReminder implements Reminder{
     
     static REMIND_REGEX : string = "REMINDER{(.*?)}"
@@ -44,16 +45,23 @@ export class SeminarReminder implements Reminder{
         }
 
         if(remindEventArr.length == 0 && spreadsheetEventArr.length == 0){
+            console.log('No event found as a seminar')
             return
         }
 
         const slackPayload : SlackPayload = makeTomorrowRemindPayload(remindEventArr, reminderRegex)
         const addedField : Field[] = this.makeSpreadsheetEventFields(spreadsheetEventArr, reminderRegex)
         slackPayload.attachments[0].fields = slackPayload.attachments[0].fields.concat(addedField)
-        UrlFetchApp.fetch(this.slackUrl, {
+        console.log('Slack Payload: ', slackPayload)
+
+        let res = UrlFetchApp.fetch(this.slackUrl, {
             'method' : 'post',
             'payload' : JSON.stringify(slackPayload)
         })
+
+        console.log('Sent to Slack')
+        console.log('Response Status Code: %d', res.getResponseCode)
+        console.log('Response Content: %s', res.getContentText('UTF-8'))
     }
 
     sendBeforeEventRemind(events : GoogleAppsScript.Calendar.CalendarEvent[]) : void{
@@ -72,14 +80,21 @@ export class SeminarReminder implements Reminder{
         }
 
         if(remindEventArr.length == 0){
+            console.log('No event found as a seminar')
             return
         }
 
         const slackPayload : SlackPayload = makeBeforeEventRemindPayload(remindEventArr)
-        UrlFetchApp.fetch(this.slackUrl, {
+        console.log('Slack Payload: ', slackPayload)
+
+        let res = UrlFetchApp.fetch(this.slackUrl, {
             'method' : 'post',
             'payload' : JSON.stringify(slackPayload)
         })
+
+        console.log('Sent to Slack')
+        console.log('Response Status Code: %d', res.getResponseCode)
+        console.log('Response Content: %s', res.getContentText('UTF-8'))
     }
 
     /**
